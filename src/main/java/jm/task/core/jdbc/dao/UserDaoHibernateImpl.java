@@ -9,7 +9,8 @@ import org.hibernate.Transaction;
 import java.util.List;
 
 public class UserDaoHibernateImpl implements UserDao {
-    private static  Transaction transaction = null;
+    private static Transaction transaction = null;
+
     public UserDaoHibernateImpl() {
 
     }
@@ -37,6 +38,7 @@ public class UserDaoHibernateImpl implements UserDao {
         } catch (HibernateException e) {
             e.printStackTrace();
         }
+
     }
 
     @Override
