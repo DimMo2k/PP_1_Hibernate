@@ -10,29 +10,31 @@ import org.hibernate.service.ServiceRegistry;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Properties;
 
 public class Util {
     private static final String URL = "jdbc:mysql://localhost:3306/mydbtest";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "root";
+    private static Connection connection;
+    private static SessionFactory sessionFactory;
+
+    private Util() {
+    }
+
 
     public static Connection getConnection() {
-        Connection connection = null;
         try {
             connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-            Statement statement = connection.createStatement();
         } catch (SQLException e) {
             System.err.println("There is no connection");
         }
         return connection;
     }
 
-    private static SessionFactory sessionFactory;
 
     public static SessionFactory getSessionFactory() {
-        if(sessionFactory == null) {
+        if (sessionFactory == null) {
             try {
                 Configuration configuration = new Configuration();
 
@@ -62,5 +64,9 @@ public class Util {
             }
         }
         return sessionFactory;
+    }
+
+    public static void closeSessionFactory() {
+        sessionFactory.close();
     }
 }
